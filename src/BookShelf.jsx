@@ -13,7 +13,6 @@ const BookShelf = () => {
 
     const handleInputChange = (event) => {
         console.log(event.target.value)
-        // setNewBook(...newBook, newBook.title = event.target.value)
 
     }
 

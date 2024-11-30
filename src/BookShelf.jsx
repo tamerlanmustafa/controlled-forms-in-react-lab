@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 
 
@@ -11,14 +11,26 @@ const BookShelf = () => {
         author: ''
     })
 
-    const handleInputChange = (event) => {
-        console.log(event.target.value)
 
-    }
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        setNewBook({
+            ...newBook, 
+            [name]: value 
+        });
+    };
 
     const handleSubmit = (event) => {
-        event.preventDefault
-    }
+        event.preventDefault()
+        setBooks([...books, newBook])
+        setNewBook({
+            title: '',
+            author: ''
+        })
+
+    } 
+
+
 
 
     return <>
@@ -26,7 +38,7 @@ const BookShelf = () => {
         <div className="bookshelfDiv">
             <div className="formDiv">
                 <h3>Add a Book</h3>
-                <form action="">
+                <form onSubmit={handleSubmit}>
                     <label htmlFor="title">Title</label>
                     <input
                         type="text"
@@ -44,9 +56,28 @@ const BookShelf = () => {
                         value={newBook.author}
                         onChange={handleInputChange}
                     />
+                    <button 
+                        type='submit'>
+                        Add Book
+                    </button>
                 </form>
             </div>
             <div className="bookCardsDiv">
+                {
+                    books.map((book, index) => (
+                        <div className="book-card" key={index}>
+                            <ul>
+
+                                <li>
+                                    <h3>Title: {book.title}</h3>
+                                    <p>Author: {book.author}</p>
+                                </li>
+
+                            </ul>
+                            
+                        </div>
+                    ))
+                }
 
             </div>
         </div>
